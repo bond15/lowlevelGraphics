@@ -1,17 +1,9 @@
-//#include "stdio.h"
-//#include <sys/types.h>
-//#include <sys/stat.h>
-//#include <fcntl.h>
-//#include <linux/fb.h>
-//#include <sys/ioctl.h>
 #include <linux/fb.h>
 #include <stdio.h>
 #include <stdint.h>
 #include <fcntl.h>
 #include <sys/mman.h>
 #include <sys/ioctl.h>
-
-//helper functions
 
 uint32_t pixel_color(uint8_t r, uint8_t g, uint8_t b, struct fb_var_screeninfo * vinfo)
 {
@@ -53,6 +45,5 @@ int main()
 		{
 			long location = (x + vinfo.xoffset) * (vinfo.bits_per_pixel / 8)  + (y + vinfo.yoffset) * finfo.line_length;
 			*((uint32_t *) (fbp + location)) = pixel_color(0xFF, 0x00, 0xFF, &vinfo);
-		}
-	
+		}	
 }
