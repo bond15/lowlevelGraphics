@@ -12,6 +12,10 @@ uint32_t pixel_color(uint8_t r, uint8_t g, uint8_t b, struct fb_var_screeninfo *
 
 int main()
 {
+	//optional - set the tty to graphics
+	//int tty_fd = open("/dev/tty0", O_RDWR);
+	//ioctl(tty_fd, KDSETMODE, KD_GRAPHICS);
+	
 	//frame buffer file descriptor
 	int fb_fd = open("/dev/fb0",O_RDWR);
 
@@ -45,5 +49,8 @@ int main()
 		{
 			long location = (x + vinfo.xoffset) * (vinfo.bits_per_pixel / 8)  + (y + vinfo.yoffset) * finfo.line_length;
 			*((uint32_t *) (fbp + location)) = pixel_color(0xFF, 0x00, 0xFF, &vinfo);
-		}	
+		}
+	
+	//reset tty to text
+	//ioctl(tty_fd, KDSETMODE, KD_TEXT);
 }
